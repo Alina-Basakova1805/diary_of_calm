@@ -1,41 +1,6 @@
-# 1. Файлы окружения и секретные данные
+# Файлы для игнорирования
+db.sqlite3
+venv/
+__pycache__/
+*.pyc
 .env
-*.env
-.env.local
-secrets.json
-settings/local.py  # Локальные настройки (если используешь отдельный файл)
-
-# 2. Системные и IDE-файлы
-.DS_Store           # MacOS
-.idea/              # JetBrains IDE (PyCharm)
-.vscode/            # VS Code
-*.swp               # Vim временные файлы
-*.swo
-
-# 3. Python-специфичное
-__pycache__/        # Кэш интерпретатора
-*.py[cod]
-*.so
-.Python
-venv/               # Виртуальное окружение (лучше создавать заново)
-env/
-pip-selfcheck.json
-
-# 4. Базы данных и медиа
-*.sqlite3           # SQLite (если используешь)
-*.db
-/media/             # Загруженные пользователями файлы
-/staticfiles/       # Собранные статические файлы (collectstatic)
-
-# 5. Логи и кэш
-*.log
-*.cache
-*.pid
-
-# 6. Django-специфичное
-db.sqlite3          # Разработческая БД (может содержать тестовые данные)
-.coverage           # Отчёты тестов
-htmlcov/            # Покрытие кода тестами
-
-# 7. Node.js (если используешь фронтенд-инструменты)
-node_modules/
