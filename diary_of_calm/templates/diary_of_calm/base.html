@@ -1,18 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
-
-{% block extra_head %}
-
-{% endblock %}
-
+    <title>Diary of Calm</title>
 </head>
 <body>
-    {% block content %}
+  <nav>
+    <a href="{% url 'home' %}">Главная</a>
 
-    {% endblock %}
+    {% if user.is_authenticated %}
+      | <a href="{% url 'create_entry' %}">Создать запись</a>
+      | <a href="{% url 'my_entries' %}">Мои записи</a>
+      | <a href="{% url 'logout' %}">Выйти</a>
+    {% else %}
+      | <a href="{% url 'login' %}">Войти</a>
+      | <a href="{% url 'register' %}">Регистрация</a>
+    {% endif %}
+  </nav>
+
+  <hr>
+
+  {% block content %}{% endblock %}
 </body>
 </html>
