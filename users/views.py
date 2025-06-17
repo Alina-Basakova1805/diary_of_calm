@@ -11,7 +11,8 @@ def register_wiew(request):
             login(request,user)
             return redirect("my_entries")
     else:
-            return render(request, "users/register.html", {"form": form})
+            form = RegForm()
+    return render(request, "users/register.html", {"form": form})
 
 def login_wiev(request):
     if request.method == 'POST':
@@ -20,7 +21,8 @@ def login_wiev(request):
                login(request,form.get_user())
                return redirect("my_entries")
     else:
-        return render(request, "users/login.html", {"form": form})
+          form = AuthenticationForm()
+    return render(request, "users/login.html", {"form": form})
 
 
 def logout_wiew(request):

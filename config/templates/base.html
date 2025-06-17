@@ -5,7 +5,7 @@
 </head>
 <body>
   <nav>
-    <a href="{% url 'home' %}">Главная</a>
+    <a href="{% url 'home_page' %}">Главная</a>
 
     {% if user.is_authenticated %}
       | <a href="{% url 'create_entry' %}">Создать запись</a>
