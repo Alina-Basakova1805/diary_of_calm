@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import DiEntry
 from django.contrib.auth.decorators import login_required
+from .forms import DiEntryForm
 
 
 def home_page(request):
@@ -11,20 +12,25 @@ def home_page(request):
 
 @login_required 
 def create_entry(request):
-    if request.method == 'POST':
-        title = request.POST.get('title') 
-        content = request.POST.get('content')
-        DiEntry.objects.create(
-            user=request.user,
-            title=title,
-            content=content
-        )
-        return redirect('home') 
-    return render(request, 'diary_of_calm/create_entry.html') 
+    if request.method == 'POST': 
+        form = DiEntryForm(request.POST)
+        if form.is_valid():
+            entry = form.save(commit = False)
+            entry.user = request.user
+            entry.save()
+    else:
+        form = DiEntryForm()
+    return render(request, 'diary_of_calm/create_entry.html', {'form': form})
+
+    #     title = request.POST.get('title') 
+    #     content = request.POST.get('content')
+    #     DiEntry.objects.create(user=request.user,content=content,title = title)
+    #     return redirect('my_entries') 
+    # return render(request, 'diary_of_calm/create_entry.html',{'form':form}) 
+
 
 @login_required
 def my_entries(request):
     entries = DiEntry.objects.filter(user=request.user)
-    entries = entries.order_by('-created_at')
-    return render(request, 'diary_of_calm/my_entries.html', {'entries': entries})
+    return render(request, "diary_of_calm/my_entries.html", {"entries": entries})
 

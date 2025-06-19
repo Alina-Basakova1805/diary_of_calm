@@ -1,10 +1,10 @@
 # users/forms.py
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class RegForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    # email = forms.EmailField(required=True)
 
     class Meta:
         model = User

@@ -3,7 +3,7 @@
 <h2>Создать запись</h2>
 <form method="post">
   {% csrf_token %}
-  <textarea name="content" rows="5" cols="60"></textarea><br>
+  {{form.as_p}}
   <button type="submit">Сохранить</button>
 </form>
 {% endblock %}
