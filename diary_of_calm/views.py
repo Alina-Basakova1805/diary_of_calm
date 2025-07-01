@@ -1,7 +1,23 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render
 from .models import DiEntry
 from django.contrib.auth.decorators import login_required
 from .forms import DiEntryForm
+from django.views.generic import DeleteView,UpdateView
+from django.urls import reverse_lazy
+
+class DeleteEntryView(DeleteView):
+    model = DiEntry
+    template_name = 'diary_of_calm/delete_entry.html'
+    success_url = reverse_lazy('my_entries')
+    context_object_name = 'entry'
+    
+class UpdateEntryView(UpdateView):
+    model = DiEntry
+    fields = ['title','content','image']
+    template_name = 'diary_of_calm/create_entry.html'
+    success_url = reverse_lazy('my_entries')
+    
+
 
 
 def home_page(request):
@@ -13,7 +29,7 @@ def home_page(request):
 @login_required 
 def create_entry(request):
     if request.method == 'POST': 
-        form = DiEntryForm(request.POST)
+        form = DiEntryForm(request.POST,request.FILES)
         if form.is_valid():
             entry = form.save(commit = False)
             entry.user = request.user
@@ -33,4 +49,6 @@ def create_entry(request):
 def my_entries(request):
     entries = DiEntry.objects.filter(user=request.user)
     return render(request, "diary_of_calm/my_entries.html", {"entries": entries})
+
+
 

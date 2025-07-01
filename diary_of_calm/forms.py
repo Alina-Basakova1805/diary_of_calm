@@ -4,4 +4,4 @@ from .models import DiEntry
 class DiEntryForm(forms.ModelForm):
     class Meta:
         model = DiEntry
-        fields = ['title','content']
+        fields = ['title','content','image']

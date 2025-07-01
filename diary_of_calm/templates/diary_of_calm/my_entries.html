@@ -5,6 +5,16 @@
 <ul>
   {% for entry in entries %}
     <li><strong>{{ entry.created_at }} </strong><br>— {{ entry.content }}</li>
+    {% if entry.image %}
+    <img src="{{ entry.image.url }}" alt="Изображение к записи" style="max-width: 300px; margin-top: 10px;">
+    {%endif%}
+    <a href="{% url 'update_entry' entry.pk %}">Редактировать</a>
+    <form action="{% url 'delete_entry' entry.id %}" method="post" style="margin-top: 10px;">
+      {% csrf_token %}
+      <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить запись?');">Удалить</button>
+    </form>
+  </li>
+  <hr>
   {% endfor %}
 {% else %}
     <li>У вас пока нет записей.</li>
